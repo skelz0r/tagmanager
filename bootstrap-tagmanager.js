@@ -33,6 +33,7 @@
       typeaheadAjaxPolling: false,
       typeaheadSource: null,
       AjaxPush: null,
+      AjaxDelete: null,
       delimeters: [44, 188, 13],
       backspace: [8],
       maxTags: 0,
@@ -265,6 +266,14 @@
         jQuery("#" + newTagRemoveId).on("click", obj, function (e) {
           e.preventDefault();
           var TagIdToRemove = parseInt(jQuery(this).attr("TagIdToRemove"));
+
+          if (tagManagerOptions.AjaxDelete != null) {
+            jQuery.ajax({
+	            url: tagManagerOptions.AjaxDelete,
+	            type: 'DELETE',
+	            data: {tag: tag} 
+            });
+				  }
           spliceTag(TagIdToRemove, e.data);
         });
 
